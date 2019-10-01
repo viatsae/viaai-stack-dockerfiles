@@ -1,0 +1,18 @@
+FROM amd64/ubuntu:bionic
+
+WORKDIR /root/
+
+RUN apt-get update 
+RUN apt-get install -y gnupg2 wget
+
+RUN wget http://archive.via.com.tw/viaai.gpg
+RUN apt-key add viaai.gpg
+RUN echo "deb http://archive.via.com.tw/ubuntu bionic main" >> /etc/apt/sources.list
+RUN apt-get update
+
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends viaai-stack
+
+# Setup for nvidia-docker
+ENV NVIDIA_VISIBLE_DEVICES all
+ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
+ENV NVIDIA_REQUIRE_CUDA "cuda>=10.0"
