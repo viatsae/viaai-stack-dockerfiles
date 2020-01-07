@@ -1,17 +1,11 @@
 FROM amd64/ubuntu:xenial
-MAINTAINER courant
 
 RUN apt-get update 
 
 RUN apt-get install -y vim wget lsb-release
 
-RUN echo "211.23.178.200 archive.via.com.tw" >> /etc/hosts && \
-wget http://archive.via.com.tw/viaai.sh && \
-chmod +x viaai.sh && ./viaai.sh && \
-DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends viaai-stack-basic
-
-RUN echo "211.23.178.200 archive.via.com.tw" >> /etc/hosts && \
-apt-get update && \ 
+RUN wget http://archive.via.com.tw/viaai.sh && \
+chmod +x viaai.sh && ./viaai.sh && rm viaai.sh &&\
 DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends viaai-stack
 
 CMD ["bash"]
