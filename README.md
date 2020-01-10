@@ -10,3 +10,8 @@ For Ubuntu 16.04:
 ```bash
 docker build -f Dockerfile.xenial .
 ```
+
+For CentOS 7:
+```bash
+docker build -f Dockerfile.centos7 .
+
