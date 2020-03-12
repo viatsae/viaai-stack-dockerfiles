@@ -1,16 +1,20 @@
 FROM amd64/centos:7
 
-RUN yum install wget epel-release -y 
+ADD nvidia-driver-dummy.rpm .
+
+RUN rpm -i nvidia-driver-dummy.rpm
+
+RUN rm -rf nvidia-driver-dummy.rpm
+
+RUN yum install wget epel-release -y
 
 RUN wget http://archive.via.com.tw/viaai-stack.repo -O /etc/yum.repos.d/viaai-stack.repo
 
 RUN yum install viaai-stack -y
 
-CMD ["/usr/sbin/init"]
+CMD ["bash"]
 
 # Setup for nvidia-docker
 ENV NVIDIA_VISIBLE_DEVICES all
 ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
 ENV NVIDIA_REQUIRE_CUDA "cuda>=10.0"
-
-
